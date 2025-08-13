@@ -1,0 +1,100 @@
+/* ===== Variables de color (del PDF) ===== */
+:root{
+  --green-600: #4C5943; /* bosque */
+  --green-500: #6D7C5D;
+  --cream:     #EFE8CE;
+  --brown-800: #592A12;
+  --brown-500: #C67738;
+  --sky-300:   #9CC0D9;
+
+  --text: #2b2b2b;
+  --muted: #667085;
+}
+
+/* ===== Reset sutil ===== */
+html { scroll-behavior: smooth; }
+body { color: var(--text); }
+
+/* ===== Utilidades ===== */
+.section-pad { padding: clamp(3rem, 5vw, 5rem) 0; }
+.bg-cream { background: var(--cream); }
+.bg-cover { background-size: cover; background-position: center; }
+
+/* Placeholder de imagen (reemplaza por fotos reales) */
+.placeholder-img { background-image: linear-gradient(135deg, rgba(156,192,217,.35), rgba(109,124,93,.35)); }
+
+/* ===== Navbar ===== */
+.navbar { backdrop-filter: saturate(1.2) blur(6px); }
+.navbar .nav-link { color: var(--green-600); }
+.navbar .nav-link:hover { color: var(--brown-800); }
+
+/* ===== Botones ===== */
+.btn-primary{
+  --bs-btn-bg: var(--green-600);
+  --bs-btn-border-color: var(--green-600);
+  --bs-btn-hover-bg: var(--green-500);
+  --bs-btn-hover-border-color: var(--green-500);
+  --bs-btn-active-bg: var(--brown-800);
+  --bs-btn-active-border-color: var(--brown-800);
+}
+.btn-outline-primary{
+  --bs-btn-color: var(--green-600);
+  --bs-btn-border-color: var(--green-600);
+  --bs-btn-hover-bg: var(--green-600);
+  --bs-btn-hover-border-color: var(--green-600);
+  --bs-btn-hover-color: #fff;
+}
+
+/* ===== Eyebrow (microtítulo) ===== */
+.eyebrow{
+  display:inline-block;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color: var(--green-500);
+  font-size:.85rem;
+}
+
+/* ===== Hero ===== */
+.hero{
+  min-height: clamp(65vh, 70vh, 80vh);
+  background:
+    radial-gradient(1200px 600px at 20% -10%, rgba(239,232,206,.8), transparent 60%),
+    radial-gradient(1200px 600px at 120% 110%, rgba(109,124,93,.25), transparent 60%),
+    linear-gradient(180deg, rgba(76,89,67,.10), rgba(76,89,67,.10));
+}
+.hero .lead{ max-width: 56ch; margin-inline: auto; }
+
+/* ===== Cards ===== */
+.card .card-img-top{ background-color: #f3f4f6; }
+.card h3 { color: var(--green-600); }
+
+/* ===== Badges ===== */
+.text-bg-success{
+  --bs-success-rgb: 109,124,93;
+  background-color: rgba(var(--bs-success-rgb), 1) !important;
+}
+.text-bg-warning{
+  --bs-warning-rgb: 198,119,56;
+  background-color: rgba(var(--bs-warning-rgb), .2) !important;
+  color: var(--brown-800) !important;
+}
+
+/* ===== Footer ===== */
+footer { background: linear-gradient(180deg, rgba(156,192,217,.12), transparent 35%); }
+footer a{ color: var(--green-600); }
+footer a:hover{ color: var(--brown-800); }
+
+/* ===== Tipografía ===== */
+h1, h2, h3, .navbar-brand { color: var(--green-600); }
+.lead, .text-body-secondary { color: var(--muted) !important; }
+
+/* ===== Responsivo fino ===== */
+@media (min-width: 992px){
+  .hero{ min-height: 72vh; }
+}
+
+/* ===== Accesibilidad (focus visible) ===== */
+:focus-visible{
+  outline: 3px solid var(--sky-300);
+  outline-offset: 2px;
+}
