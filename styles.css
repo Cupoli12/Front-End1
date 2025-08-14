@@ -45,7 +45,7 @@ h1, h2 {
 .bg-cream { background: var(--cream); }
 .bg-cover { background-size: cover; background-position: center; }
 
-/* Placeholder de imagen (reemplaza por fotos reales) */
+/* Placeholder de imagen */
 .placeholder-img { background-image: linear-gradient(135deg, rgba(156,192,217,.35), rgba(109,124,93,.35)); }
 
 /* ===== Navbar ===== */
@@ -55,7 +55,7 @@ h1, h2 {
 .navbar .nav-link:hover { color: var(--sky-300); }
 /* ===== Navbar premium blur ===== */
 .navbar-blur{
-  --nav-bg: rgba(76, 89, 67, 0.72); /* var(--green-600) con transparencia */
+  --nav-bg: rgba(76, 89, 67, 0.72);
   background: var(--nav-bg);
   backdrop-filter: saturate(1.15) blur(10px);
   -webkit-backdrop-filter: saturate(1.15) blur(10px);
@@ -72,7 +72,7 @@ h1, h2 {
 .navbar-brand{ color: #fff; }
 .navbar-brand:hover{ color: #fff; opacity: .9; }
 
-/* Links (animación subrayado elegante) */
+/* Links  */
 .navbar .nav-link{
   color: #f6f7f3;
   opacity: .9;
@@ -98,7 +98,7 @@ h1, h2 {
   transform: scaleX(1);
 }
 
-/* Botón Reservar (pill destacado) */
+/* Botón Reservar*/
 .navbar .btn-primary{
   --bs-btn-bg: #ffffff;
   --bs-btn-color: var(--green-600);
@@ -146,15 +146,15 @@ h1, h2 {
   --bs-btn-hover-color: #fff;
 }
 
-/* ===== Banner de marca (ajustado) ===== */
+/* ===== Banner de marca ===== */
 .brand-banner{
   position: relative;
-  min-height: 70vh;                 /* casi pantalla completa */
+  min-height: 70vh;                 
   display: flex;
-  align-items: stretch;              /* para que .container pueda medir toda la altura */
+  align-items: stretch;             
   color: #fff;
 
-  /* Fondo responsive (cambia por breakpoint) */
+  
   background-image: url('imagenes/banner-cel.png');
   background-size: cover;
   background-position: center;
@@ -172,12 +172,11 @@ h1, h2 {
   z-index: 0;
 }
 
-/* Centro del banner (que quede por encima del overlay) */
 .brand-banner .container{ position: relative; z-index: 1; }
 
-/* Isotipo GRANDE y en bloque */
+/* Isotipo  */
 .brand-mark{
-  display: block;      /* asegura línea propia */
+  display: block;     
   width: clamp(96px, 12vw, 160px);
   height: auto;
   filter: drop-shadow(0 2px 6px rgba(0,0,0,.3));
@@ -193,7 +192,7 @@ h1, h2 {
   filter: drop-shadow(0 2px 10px rgba(0,0,0,.35));
   padding-bottom: 10%;
 }
-.brand-wordmark-mobile{  width: 260px; }    /* móvil */
+.brand-wordmark-mobile{  width: 260px; }    /* movil */
 .brand-wordmark-desktop{ width: 460px; }    /* desktop */
 @media (min-width: 1200px){
   .brand-wordmark-desktop{ width: 520px; }
@@ -201,7 +200,7 @@ h1, h2 {
 
 
 
-/* ===== Eyebrow (microtítulo) ===== */
+/* ===== Eyebrow ===== */
 .eyebrow{
   display:inline-block;
   letter-spacing:.18em;
@@ -253,7 +252,7 @@ h1, h2, h3, .navbar-brand { color: var(--green-600); }
 .ratio > img{
   width: 100%;
   height: 100%;
-  object-fit: cover;   /* recorta sin deformar */
+  object-fit: cover;  
   display: block;
 }
 
@@ -265,11 +264,11 @@ h1, h2, h3, .navbar-brand { color: var(--green-600); }
 .bg-green .form-control{
   background-color: var(--cream);
   border: 1px solid rgba(0,0,0,.08);
-  border-radius: .75rem;   /* suave y moderno */
+  border-radius: .75rem;  
 }
 .bg-green .form-control:focus{
   border-color: transparent;
-  box-shadow: 0 0 0 4px rgba(156,192,217,.35); /* usa tu sky-300 como halo */
+  box-shadow: 0 0 0 4px rgba(156,192,217,.35); 
 }
 
 /* Botón claro en fondo verde */
@@ -278,24 +277,23 @@ h1, h2, h3, .navbar-brand { color: var(--green-600); }
   border-radius: 999px; /* pill */
 }
 
-/* Ajustes de espacio en pantallas pequeñas */
+/* pantallas pequeñas */
 @media (max-width: 575.98px){
   #pre-reserva .form-label{ font-size: .95rem; }
 }
 
 .section-icon{
-  width: 60px;         /* ajusta a tu gusto: 36–56px suele funcionar bien */
+  width: 60px;        
   height: auto;
   display: inline-block;
 }
 @media (min-width: 992px){
-  .section-icon{ width: 70px; } /* un poquito más grande en desktop */
-}
+  .section-icon{ width: 70px; } 
 
-/* Fondo green-500 y franja delgada */
+
 .feature-strip{
   background: var(--green-500);
-  padding: 1.25rem 0;        /* delgada */
+  padding: 1.25rem 0;       
 }
 
 /* Caja de cada item */
@@ -313,11 +311,11 @@ h1, h2, h3, .navbar-brand { color: var(--green-600); }
   box-shadow: 0 .5rem 1.25rem rgba(0,0,0,.12);
 }
 
-/* Ícono (imagen o <i>) */
+/* Ícono */
 .feature-icon{
-  width: 90px;      /* 36–44px funciona bien */
-  height: 90px;     /* ignóralo si usas <i> */
-  object-fit: contain;   /* ajusta sin recortar y sin deformar */
+  width: 90px;      
+  height: 90px;   
+  object-fit: contain;   
   object-position: center;
   display: block;
   margin: 0 auto .5rem;
@@ -333,13 +331,13 @@ h1, h2, h3, .navbar-brand { color: var(--green-600); }
   font-size: 1.5rem;
 }
 
-/* Ajuste un poco más aire en pantallas medianas */
+
 @media (min-width: 768px){
   .feature-strip{ padding: 1.5rem 0; }
   .feature-icon{ width: 40px; height: 40px; }
 }
 
-/* ===== Footer estilo “glass” sobre verde de marca ===== */
+/* ===== Footer ===== */
 .site-footer{
   background: linear-gradient(180deg, rgba(76,89,67,.92), rgba(76,89,67,.98)); /* var(--green-600) */
   border-top: 1px solid rgba(255,255,255,.08);
@@ -350,7 +348,7 @@ h1, h2, h3, .navbar-brand { color: var(--green-600); }
 
 /* Logo en footer */
 .footer-logo{
-  height: 28px;       /* sube a 32 si lo quieres un poco más visible */
+  height: 28px;       
   width: auto;
   display: block;
 }
@@ -365,10 +363,10 @@ h1, h2, h3, .navbar-brand { color: var(--green-600); }
   text-decoration: underline;
 }
 
-/* Iconos de la lista */
+/* Iconos  */
 .site-footer i.bi{ opacity: .9; }
 
-/* Reutiliza tu botón de ícono con colores para fondo oscuro */
+
 .site-footer .btn-icon{
   background: rgba(255,255,255,.14);
   border: 1px solid rgba(255,255,255,.28);
@@ -380,5 +378,5 @@ h1, h2, h3, .navbar-brand { color: var(--green-600); }
   border-color: rgba(255,255,255,.35);
 }
 
-/* Línea separadora suave */
 .site-footer hr{ opacity: .25; }
+}
