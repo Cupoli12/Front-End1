@@ -7,30 +7,38 @@
 
   <!-- Bootstrap -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
-
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
   <!-- CSS existente -->
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
-  <!-- NAV -->
-  <nav class="navbar navbar-expand-lg navbar-light bg-body sticky-top border-bottom">
-    <div class="container">
-      <a class="navbar-brand fw-semibold" href="index.html">La Casa de las Nubes</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+   <!-- NAV -->
+  <nav class="navbar navbar-expand-lg navbar-dark navbar-blur sticky-top border-bottom">
+  <div class="container">
+   
+    <a class="navbar-brand d-flex align-items-center gap-2" href="#inicio">
+      <img src="./imagenes/iconos/logo_navbar.png" alt="La Casa de las Nubes" class="brand-logo" />
+    </a>
 
-      <div class="collapse navbar-collapse" id="mainNav">
-        <ul class="navbar-nav ms-auto gap-lg-2">
-          <li class="nav-item"><a class="nav-link" href="index.html#nosotros">Nosotros</a></li>
-          <li class="nav-item"><a class="nav-link" href="index.html#experiencias">Experiencias</a></li>
-          <li class="nav-item"><a class="nav-link" href="index.html#ubicacion">Ubicación</a></li>
-          <li class="nav-item"><a class="nav-link" href="nuestra-marca.html">Nuestra Marca</a></li>
-          <li class="nav-item"><a class="btn btn-primary btn-sm px-3" href="index.html#reservar">Reservar</a></li>
-        </ul>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-label="Abrir menú">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="mainNav">
+      <ul class="navbar-nav ms-auto me-lg-3 gap-lg-2">
+        <li class="nav-item"><a class="nav-link" href="#nosotros">Nosotros</a></li>
+        <li class="nav-item"><a class="nav-link" href="#experiencias">Experiencias</a></li>
+        <li class="nav-item"><a class="nav-link" href="#ubicacion">Ubicación</a></li>
+        <li class="nav-item"><a class="nav-link" href="#contacto">Contacto</a></li>
+        <li class="nav-item"><a class="nav-link" href="nuestra-marca.html">Nuestra Marca</a></li>
+      </ul>
+
+      <div class="d-flex align-items-center gap-2">
+        <a class="btn btn-primary btn-sm px-3 rounded-pill" href="#reservar">Reservar</a>
       </div>
     </div>
+  </div>
   </nav>
 
   <!-- HERO / ENCABEZADO DE MARCA -->
@@ -42,25 +50,43 @@
     </div>
   </header>
 
-  <!-- STATEMENT DE MARCA -->
-  <section class="section-pad">
-    <div class="container">
-      <div class="row g-4">
-        <div class="col-12 col-lg-6">
-          <h2 class="h4 fw-semibold mb-3">Quiénes somos</h2>
-          <p class="mb-3">
-            No somos un hotel; somos un eco-glamping para alquilar, perfecto para amigos y familias, donde te desconectas de la rutina y te conectas contigo, la naturaleza y los que más quieres.
-          </p>
-          <p class="mb-0">
-            Tú tienes el control; nosotros brindamos el escenario perfecto.
-          </p>
+  <!-- DESTACADOS (4 columnas) -->
+<section id="destacados" class="feature-strip text-white">
+  <div class="container">
+    <!-- 2 columnas en móvil / 4 columnas desde md -->
+    <div class="row row-cols-2 row-cols-md-4 g-3 g-md-4">
+      <!-- Item 1 -->
+      <div class="col">
+        <div class="feature-item text-center">
+          <!-- Usa imagen propia -->
+          <img src="imagenes/iconos/icon-naturaleza.png" alt="" class="feature-icon" loading="lazy">
+          <p class="feature-text mb-0">Naturaleza</p>
         </div>
-        <div class="col-12 col-lg-6">
-          <div class="ratio ratio-4x3 rounded-4 overflow-hidden shadow-sm bg-cover placeholder-img"></div>
+      </div>
+      <!-- Item 2 -->
+      <div class="col">
+        <div class="feature-item text-center">
+          <img src="imagenes/iconos/icon-mindfulness.png" alt="" class="feature-icon" loading="lazy">
+          <p class="feature-text mb-0">Conexión</p>
+        </div>
+      </div>
+      <!-- Item 3 -->
+      <div class="col">
+        <div class="feature-item text-center">
+          <img src="imagenes/iconos/icon-comunidad.png" alt="" class="feature-icon" loading="lazy">
+          <p class="feature-text mb-0">Comunidad</p>
+        </div>
+      </div>
+      <!-- Item 4 -->
+      <div class="col">
+        <div class="feature-item text-center">
+          <img src="imagenes/iconos/icon-aventura.png" alt="" class="feature-icon" loading="lazy">
+          <p class="feature-text mb-0">Aventura</p>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
   <!-- ATRIBUTOS DE EXPERIENCIA -->
   <section class="section-pad bg-cream">
@@ -77,7 +103,11 @@
           </div>
         </div>
         <div class="col-12 col-lg-6">
-          <div class="ratio ratio-4x3 rounded-4 overflow-hidden shadow-sm bg-cover placeholder-img"></div>
+          <div class="ratio ratio-4x3 rounded-4 overflow-hidden shadow-sm bg-cover placeholder-img">
+            <img src="imagenes/silla.png"
+       alt="Experiencias"
+       loading="lazy">
+          </div>
         </div>
       </div>
     </div>
@@ -96,7 +126,11 @@
         <!-- Identidad de marca -->
         <div class="col-12 col-md-6 col-lg-4">
           <article class="card h-100 shadow-sm">
-            <div class="ratio ratio-16x9 card-img-top bg-cover placeholder-img"></div>
+            <div class="ratio ratio-16x9 card-img-top bg-cover placeholder-img">
+              <img src="imagenes/marca.png"
+       alt="Experiencias"
+       loading="lazy">
+            </div>
             <div class="card-body d-flex flex-column">
               <h3 class="h5 mb-2">Identidad de marca</h3>
               <p class="text-body-secondary mb-3">Sistema visual, tono y aplicaciones.</p>
@@ -113,7 +147,11 @@
         <!-- Validación con usuarios -->
         <div class="col-12 col-md-6 col-lg-4">
           <article class="card h-100 shadow-sm">
-            <div class="ratio ratio-16x9 card-img-top bg-cover placeholder-img"></div>
+            <div class="ratio ratio-16x9 card-img-top bg-cover placeholder-img">
+              <img src="imagenes/validacion.png"
+       alt="Experiencias"
+       loading="lazy">
+            </div>
             <div class="card-body d-flex flex-column">
               <h3 class="h5 mb-2">Validación con usuarios</h3>
               <p class="text-body-secondary mb-3">Hallazgos de pruebas y mejoras.</p>
@@ -130,7 +168,11 @@
         <!-- MockUp Instagram -->
         <div class="col-12 col-md-6 col-lg-4">
           <article class="card h-100 shadow-sm">
-            <div class="ratio ratio-16x9 card-img-top bg-cover placeholder-img"></div>
+            <div class="ratio ratio-16x9 card-img-top bg-cover placeholder-img">
+              <img src="imagenes/mockup.png"
+       alt="Experiencias"
+       loading="lazy">
+            </div>
             <div class="card-body d-flex flex-column">
               <h3 class="h5 mb-2">MockUp Instagram</h3>
               <p class="text-body-secondary mb-3">Exploración de piezas y feed.</p>
@@ -147,7 +189,11 @@
         <!-- Campaña -->
         <div class="col-12 col-md-6 col-lg-4">
           <article class="card h-100 shadow-sm">
-            <div class="ratio ratio-16x9 card-img-top bg-cover placeholder-img"></div>
+            <div class="ratio ratio-16x9 card-img-top bg-cover placeholder-img">
+              <img src="imagenes/campana.png"
+       alt="Experiencias"
+       loading="lazy">
+            </div>
             <div class="card-body d-flex flex-column">
               <h3 class="h5 mb-2">Campaña</h3>
               <p class="text-body-secondary mb-3">Creatividades y línea de comunicación.</p>
@@ -164,7 +210,11 @@
         <!-- User Journey -->
         <div class="col-12 col-md-6 col-lg-4">
           <article class="card h-100 shadow-sm">
-            <div class="ratio ratio-16x9 card-img-top bg-cover placeholder-img"></div>
+            <div class="ratio ratio-16x9 card-img-top bg-cover placeholder-img">
+              <img src="imagenes/jouney.png"
+       alt="Experiencias"
+       loading="lazy">
+            </div>
             <div class="card-body d-flex flex-column">
               <h3 class="h5 mb-2">User Journey</h3>
               <p class="text-body-secondary mb-3">Momentos clave de la experiencia.</p>
@@ -221,32 +271,72 @@
     </div>
   </section>
 
-  <!-- CONTACTO -->
-  <section class="section-pad">
-    <div class="container">
-      <div class="row g-4 align-items-center">
-        <div class="col-12 col-lg-6">
-          <h2 class="h3 fw-semibold mb-3">Contáctanos</h2>
-          <p class="mb-2"><strong>Instagram</strong><br>
-            <a href="https://www.instagram.com/lacasadelasnubes_/" target="_blank" rel="noopener">@lacasadelasnubes_</a>
-          </p>
-          <p class="mb-0"><strong>WhatsApp</strong><br>
-            <a href="https://wa.me/573107472920" target="_blank" rel="noopener">+57 310 747 2920</a>
-          </p>
-        </div>
-        <div class="col-12 col-lg-6">
-          <div class="ratio ratio-4x3 rounded-4 overflow-hidden shadow-sm bg-cover placeholder-img"></div>
+ <!-- FOOTER -->
+  <footer id="contacto" class="site-footer text-white pt-5">
+  <div class="container">
+    <div class="row g-4">
+      <!-- Marca + redes -->
+      <div class="col-12 col-lg-4">
+        <a href="#inicio" class="d-inline-flex align-items-center gap-2 text-decoration-none text-white mb-2">
+          <img src="imagenes/iconos/logotipo.png" alt="La Casa de las Nubes" class="footer-logo">
+        </a>
+        <p class="small opacity-75 mb-3">Friends &amp; Family Experience Glamping</p>
+
+        <div class="d-flex gap-2">
+          <a class="btn btn-icon" href="https://www.instagram.com/lacasadelasnubes_/" target="_blank" rel="noopener" aria-label="Instagram">
+            <i class="bi bi-instagram"></i>
+          </a>
+          <a class="btn btn-icon" href="https://wa.me/573107472920" target="_blank" rel="noopener" aria-label="WhatsApp">
+            <i class="bi bi-whatsapp"></i>
+          </a>
         </div>
       </div>
-    </div>
-  </section>
 
-  <!-- FOOTER -->
-  <footer class="py-5 border-top">
-    <div class="container">
-      <small class="text-body-secondary d-block">© <span id="year"></span> Eco-Glamping</small>
+      <!-- Contacto -->
+      <div class="col-6 col-lg-4">
+        <h3 class="h6 text-uppercase opacity-75 mb-2">Contacto</h3>
+        <ul class="list-unstyled small mb-0">
+          <li class="mb-1">
+            <i class="bi bi-telephone me-2"></i>
+            <a class="footer-link" href="https://wa.me/573107472920" target="_blank" rel="noopener">+57 310 747 2920</a>
+          </li>
+          <li class="mb-1">
+            <i class="bi bi-envelope me-2"></i>
+            <a class="footer-link" href="mailto:hola@lacasadelasnubes.co">hola@lacasadelasnubes.co</a>
+          </li>
+          <li class="mb-1">
+            <i class="bi bi-geo-alt me-2"></i>El Carmen de Viboral, Antioquia, Colombia
+          </li>
+          <li class="mb-1">
+            <i class="bi bi-clock me-2"></i>Atención: 8:00–18:00
+          </li>
+        </ul>
+      </div>
+
+      <!-- Enlaces + CTA -->
+      <div class="col-6 col-lg-4">
+        <h3 class="h6 text-uppercase opacity-75 mb-2">Enlaces</h3>
+        <ul class="list-unstyled small">
+          <li class="mb-1"><a class="footer-link" href="#nosotros">Nosotros</a></li>
+          <li class="mb-1"><a class="footer-link" href="#experiencias">Experiencias</a></li>
+          <li class="mb-1"><a class="footer-link" href="#ubicacion">Ubicación</a></li>
+          <li class="mb-1"><a class="footer-link" href="nuestra-marca.html">Nuestra Marca</a></li>
+        </ul>
+        <a class="btn btn-light btn-sm rounded-pill px-3" href="#pre-reserva">Reservar</a>
+      </div>
     </div>
-  </footer>
+
+    <hr class="border-light-subtle my-4">
+
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-center small opacity-75 pb-3">
+      <span>© <span id="year"></span> La Casa de las Nubes — Eco-Glamping</span>
+      <div class="mt-2 mt-md-0">
+        <a class="footer-link me-3" href="#ubicacion">Cómo llegar</a>
+        <a class="footer-link" href="#pre-reserva">Disponibilidad</a>
+      </div>
+    </div>
+  </div>
+</footer>
 
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

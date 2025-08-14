@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>La Casa de las Nubes — Eco-Glamping</title>
 
-  <!-- Bootstrap CSS -->
   <link
     href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
     rel="stylesheet"
@@ -13,33 +12,120 @@
     crossorigin="anonymous"
   />
 
-  <!-- Tu CSS -->
   <link rel="stylesheet" href="styles.css" />
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 </head>
 <body>
 
   <!-- NAV -->
-  <nav class="navbar navbar-expand-lg navbar-light bg-body sticky-top border-bottom">
-    <div class="container">
-      <a class="navbar-brand fw-semibold" href="#inicio">La Casa de las Nubes</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+  <nav class="navbar navbar-expand-lg navbar-dark navbar-blur sticky-top border-bottom">
+  <div class="container">
+   
+    <a class="navbar-brand d-flex align-items-center gap-2" href="#inicio">
+      <img src="./imagenes/iconos/logo_navbar.png" alt="La Casa de las Nubes" class="brand-logo" />
+    </a>
 
-      <div class="collapse navbar-collapse" id="mainNav">
-        <ul class="navbar-nav ms-auto gap-lg-2">
-          <li class="nav-item"><a class="nav-link" href="#nosotros">Nosotros</a></li>
-          <li class="nav-item"><a class="nav-link" href="#experiencias">Experiencias</a></li>
-          <li class="nav-item"><a class="nav-link" href="#ubicacion">Ubicación</a></li>
-          <li class="nav-item"><a class="nav-link" href="#contacto">Contacto</a></li>
-          <li class="nav-item"><a class="nav-link" href="nuestra-marca.html">Nuestra Marca</a></li>
-          <li class="nav-item ms-lg-2">
-            <a class="btn btn-primary btn-sm px-3" href="#reservar">Reservar</a>
-          </li>
-        </ul>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-label="Abrir menú">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="mainNav">
+      <ul class="navbar-nav ms-auto me-lg-3 gap-lg-2">
+        <li class="nav-item"><a class="nav-link" href="#nosotros">Nosotros</a></li>
+        <li class="nav-item"><a class="nav-link" href="#experiencias">Experiencias</a></li>
+        <li class="nav-item"><a class="nav-link" href="#ubicacion">Ubicación</a></li>
+        <li class="nav-item"><a class="nav-link" href="#contacto">Contacto</a></li>
+        <li class="nav-item"><a class="nav-link" href="nuestra-marca.html">Nuestra Marca</a></li>
+      </ul>
+
+      <div class="d-flex align-items-center gap-2">
+        <a class="btn btn-primary btn-sm px-3 rounded-pill" href="#reservar">Reservar</a>
       </div>
     </div>
+  </div>
   </nav>
+
+<!-- BANNER DE MARCA -->
+<section id="banner" class="brand-banner text-white">
+  <div class="brand-overlay"></div>
+
+  <div class="container position-relative h-100 py-5">
+    <!-- Centro del banner -->
+    <div class="row h-100 justify-content-center align-items-center text-center">
+      <div class="col-11 col-md-10 col-lg-8">
+        <!-- Isotipo (siempre arriba y en su propia línea) -->
+        <img src="imagenes/iconos/logotipo.png"
+             alt=""
+             class="brand-mark d-block mx-auto mb-3">
+
+        <!-- Wordmark como imagen -->
+        <!-- Desktop / tablet -->
+        <img src="imagenes/iconos/logo-text-desktop.png"
+             alt="La Casa de las Nubes"
+             class="brand-wordmark-desktop d-none d-md-block mx-auto mb-2">
+        <!-- Móvil -->
+        <img src="imagenes/iconos/logo-text-cel.png"
+             alt="La Casa de las Nubes"
+             class="brand-wordmark-mobile d-block d-md-none mx-auto mb-2">  
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRE-RESERVA -->
+<section id="pre-reserva" class="section-pad bg-green text-white">
+  <div class="container">
+    <div class="row justify-content-center text-center mb-3">
+      <div class="col-12 col-lg-10">
+        <h2 class="h3 fw-semibold mb-1">Reserva rápida</h2>
+        <p class="mb-0 opacity-75">Déjanos tus datos y las fechas que te interesan.</p>
+      </div>
+    </div>
+
+    <form class="row gy-3 gx-2 align-items-end justify-content-center">
+      <!-- Nombre -->
+      <div class="col-12 col-md-4 col-lg-3">
+        <label for="pr-nombre" class="form-label text-white">Nombre</label>
+        <input id="pr-nombre" type="text" class="form-control" placeholder="Tu nombre"
+               autocomplete="name">
+      </div>
+
+      <!-- Email -->
+      <div class="col-12 col-md-4 col-lg-3">
+        <label for="pr-email" class="form-label text-white">Email</label>
+        <input id="pr-email" type="email" class="form-control" placeholder="tucorreo@ejemplo.com"
+               autocomplete="email">
+      </div>
+
+      <!-- Teléfono -->
+      <div class="col-12 col-md-4 col-lg-2">
+        <label for="pr-tel" class="form-label text-white">Teléfono</label>
+        <input id="pr-tel" type="tel" class="form-control" placeholder="+57 300 000 0000"
+               inputmode="tel" autocomplete="tel">
+      </div>
+
+      <!-- Fecha llegada -->
+      <div class="col-6 col-md-3 col-lg-2">
+        <label for="pr-llegada" class="form-label text-white">Llegada</label>
+        <input id="pr-llegada" type="date" class="form-control">
+      </div>
+
+      <!-- Fecha salida -->
+      <div class="col-6 col-md-3 col-lg-2">
+        <label for="pr-salida" class="form-label text-white">Salida</label>
+        <input id="pr-salida" type="date" class="form-control">
+      </div>
+
+      <!-- Botón -->
+      <div class="col-12 col-md-auto col-lg-auto">
+        <button type="button" class="btn btn-light px-4 mt-2 mt-md-0">
+          Consultar disponibilidad
+        </button>
+      </div>
+    </form>
+  </div>
+</section>
 
   <!-- HERO -->
   <header id="inicio" class="hero d-flex align-items-center">
@@ -48,12 +134,11 @@
         <div class="col-12 col-lg-10">
           <p class="eyebrow mb-2">Friends & Family Experience Glamping</p>
           <h1 class="display-5 fw-semibold mb-3">
-            No somos un hotel, somos un eco-glamping para alquilar:
-            <span class="d-inline d-sm-block">desconéctate de la rutina y conéctate contigo, la naturaleza y los que más quieres.</span>
+            Somos un espacio libre.
           </h1>
-          <p class="lead text-body-secondary mb-4">Tú tienes el control, nosotros brindamos el escenario perfecto.</p>
+          <p class="lead text-body-secondary mb-4">No somos un hotel, somos un eco-glamping para alquilar:
+desconéctate de la rutina y conéctate contigo, la naturaleza y los que más quieres. Tú tienes el control, nosotros brindamos el escenario perfecto.</p>
           <div class="d-flex flex-wrap gap-2 justify-content-center">
-            <a class="btn btn-primary btn-lg px-4" href="#reservar">Reserva ya</a>
             <a class="btn btn-outline-primary btn-lg px-4" href="#contacto">Contáctanos</a>
           </div>
         </div>
@@ -66,6 +151,14 @@
     <div class="container">
       <div class="row g-5 align-items-center">
         <div class="col-12 col-lg-6">
+          <div class="text-center text-lg-start">
+    <img
+      src="imagenes/iconos/icon-mindfulness.png"
+      alt=""
+      class="section-icon mb-2"
+      loading="lazy"
+    >
+  </div>
           <span class="eyebrow">Mindfulness</span>
           <h2 class="h1 fw-semibold mb-3">Conexión</h2>
           <p class="mb-3">
@@ -76,7 +169,12 @@
           </p>
         </div>
         <div class="col-12 col-lg-6">
-          <div class="ratio ratio-4x3 rounded-4 overflow-hidden shadow-sm bg-cover placeholder-img"></div>
+          <div class="ratio ratio-4x3 rounded-4 overflow-hidden shadow-sm bg-cover placeholder-img">
+            <div class="ratio ratio-4x3 rounded-4 overflow-hidden shadow-sm bg-cover placeholder-img">
+            <img src="imagenes/conexion.png"
+       alt="Mindfulness"
+       loading="lazy">
+          </div>
         </div>
       </div>
     </div>
@@ -87,6 +185,15 @@
     <div class="container">
       <div class="row g-5 align-items-center flex-lg-row-reverse">
         <div class="col-12 col-lg-6">
+          <div class="text-center text-lg-start">
+    <img
+      src="imagenes/iconos/icon-comunidad.png"
+      alt=""
+      class="section-icon mb-2"
+      loading="lazy"
+    >
+  </div>
+
           <span class="eyebrow">Familia & Amigos</span>
           <h2 class="h1 fw-semibold mb-3">Comunidad</h2>
           <p class="mb-3">
@@ -102,7 +209,11 @@
           </div>
         </div>
         <div class="col-12 col-lg-6">
-          <div class="ratio ratio-4x3 rounded-4 overflow-hidden shadow-sm bg-cover placeholder-img"></div>
+          <div class="ratio ratio-4x3 rounded-4 overflow-hidden shadow-sm bg-cover placeholder-img">
+            <img src="imagenes/charcos.jpg"
+       alt="Mindfulness"
+       loading="lazy">
+          </div>
         </div>
       </div>
     </div>
@@ -120,7 +231,11 @@
       <div class="row g-4">
         <div class="col-12 col-md-6 col-lg-4">
           <article class="card h-100 shadow-sm">
-            <div class="ratio ratio-16x9 bg-cover card-img-top placeholder-img"></div>
+            <div class="ratio ratio-16x9 bg-cover card-img-top placeholder-img">
+              <img src="imagenes/trekk.jpg"
+       alt="trekking"
+       loading="lazy">
+            </div>
             <div class="card-body">
               <h3 class="h5">Trekking</h3>
               <p class="card-text text-body-secondary">Rutas para respirar y reconectar con el entorno.</p>
@@ -129,7 +244,11 @@
         </div>
         <div class="col-12 col-md-6 col-lg-4">
           <article class="card h-100 shadow-sm">
-            <div class="ratio ratio-16x9 bg-cover card-img-top placeholder-img"></div>
+            <div class="ratio ratio-16x9 bg-cover card-img-top placeholder-img">
+              <img src="imagenes/comunidad.png"
+       alt="charcos"
+       loading="lazy">
+            </div>
             <div class="card-body">
               <h3 class="h5">Charcos & Cascadas</h3>
               <p class="card-text text-body-secondary">Escenarios naturales que invitan a pausar y disfrutar.</p>
@@ -138,7 +257,11 @@
         </div>
         <div class="col-12 col-md-6 col-lg-4">
           <article class="card h-100 shadow-sm">
-            <div class="ratio ratio-16x9 bg-cover card-img-top placeholder-img"></div>
+            <div class="ratio ratio-16x9 bg-cover card-img-top placeholder-img">
+              <img src="imagenes/cuatrimoto.png"
+       alt="Mindfulness"
+       loading="lazy">
+            </div>
             <div class="card-body">
               <h3 class="h5">4x4</h3>
               <p class="card-text text-body-secondary">Rutas de aventura para los más intrépidos.</p>
@@ -182,34 +305,71 @@
   </section>
 
   <!-- FOOTER -->
-  <footer id="contacto" class="py-5 border-top">
-    <div class="container">
-      <div class="row g-4">
-        <div class="col-12 col-lg-6">
-          <h3 class="h5 mb-3">La Casa de las Nubes</h3>
-          <p class="mb-1">Instagram: <a href="https://www.instagram.com/lacasadelasnubes_/" target="_blank" rel="noopener">@lacasadelasnubes_</a></p>
-          <p class="mb-1">WhatsApp: <a href="https://wa.me/573107472920" target="_blank" rel="noopener">+57 310 747 2920</a></p>
-          <small class="text-body-secondary d-block mt-3">© <span id="year"></span> Eco-Glamping</small>
-        </div>
-        <div class="col-12 col-lg-6">
-          <form class="row gy-2 gx-2">
-            <div class="col-12 col-md-6">
-              <input class="form-control" type="text" placeholder="Nombre" />
-            </div>
-            <div class="col-12 col-md-6">
-              <input class="form-control" type="email" placeholder="Email" />
-            </div>
-            <div class="col-12">
-              <textarea class="form-control" rows="3" placeholder="Mensaje"></textarea>
-            </div>
-            <div class="col-12">
-              <button class="btn btn-primary px-4" type="button">Enviar</button>
-            </div>
-          </form>
+  <footer id="contacto" class="site-footer text-white pt-5">
+  <div class="container">
+    <div class="row g-4">
+      <!-- Marca + redes -->
+      <div class="col-12 col-lg-4">
+        <a href="#inicio" class="d-inline-flex align-items-center gap-2 text-decoration-none text-white mb-2">
+          <img src="imagenes/iconos/logotipo.png" alt="La Casa de las Nubes" class="footer-logo">
+        </a>
+        <p class="small opacity-75 mb-3">Friends &amp; Family Experience Glamping</p>
+
+        <div class="d-flex gap-2">
+          <a class="btn btn-icon" href="https://www.instagram.com/lacasadelasnubes_/" target="_blank" rel="noopener" aria-label="Instagram">
+            <i class="bi bi-instagram"></i>
+          </a>
+          <a class="btn btn-icon" href="https://wa.me/573107472920" target="_blank" rel="noopener" aria-label="WhatsApp">
+            <i class="bi bi-whatsapp"></i>
+          </a>
         </div>
       </div>
+
+      <!-- Contacto -->
+      <div class="col-6 col-lg-4">
+        <h3 class="h6 text-uppercase opacity-75 mb-2">Contacto</h3>
+        <ul class="list-unstyled small mb-0">
+          <li class="mb-1">
+            <i class="bi bi-telephone me-2"></i>
+            <a class="footer-link" href="https://wa.me/573107472920" target="_blank" rel="noopener">+57 310 747 2920</a>
+          </li>
+          <li class="mb-1">
+            <i class="bi bi-envelope me-2"></i>
+            <a class="footer-link" href="mailto:hola@lacasadelasnubes.co">hola@lacasadelasnubes.co</a>
+          </li>
+          <li class="mb-1">
+            <i class="bi bi-geo-alt me-2"></i>El Carmen de Viboral, Antioquia, Colombia
+          </li>
+          <li class="mb-1">
+            <i class="bi bi-clock me-2"></i>Atención: 8:00–18:00
+          </li>
+        </ul>
+      </div>
+
+      <!-- Enlaces + CTA -->
+      <div class="col-6 col-lg-4">
+        <h3 class="h6 text-uppercase opacity-75 mb-2">Enlaces</h3>
+        <ul class="list-unstyled small">
+          <li class="mb-1"><a class="footer-link" href="#nosotros">Nosotros</a></li>
+          <li class="mb-1"><a class="footer-link" href="#experiencias">Experiencias</a></li>
+          <li class="mb-1"><a class="footer-link" href="#ubicacion">Ubicación</a></li>
+          <li class="mb-1"><a class="footer-link" href="nuestra-marca.html">Nuestra Marca</a></li>
+        </ul>
+        <a class="btn btn-light btn-sm rounded-pill px-3" href="#pre-reserva">Reservar</a>
+      </div>
     </div>
-  </footer>
+
+    <hr class="border-light-subtle my-4">
+
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-center small opacity-75 pb-3">
+      <span>© <span id="year"></span> La Casa de las Nubes — Eco-Glamping</span>
+      <div class="mt-2 mt-md-0">
+        <a class="footer-link me-3" href="#ubicacion">Cómo llegar</a>
+        <a class="footer-link" href="#pre-reserva">Disponibilidad</a>
+      </div>
+    </div>
+  </div>
+</footer>
 
   <!-- Bootstrap JS -->
   <script
@@ -218,9 +378,5 @@
     crossorigin="anonymous"
   ></script>
 
-  <!-- Año dinámico (opcional) -->
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-  </script>
 </body>
 </html>
