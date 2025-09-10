@@ -12,9 +12,9 @@
     crossorigin="anonymous"
   />
 
-  <link rel="stylesheet" href="styles.css" />
-
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
@@ -41,10 +41,30 @@
 
       <div class="d-flex align-items-center gap-2">
         <a class="btn btn-primary btn-sm px-3 rounded-pill" href="#reservar">Reservar</a>
+        <li class="nav-item">
+  <a id="btn-reservas" class="nav-link d-flex align-items-center gap-1" href="#"
+     aria-controls="reservas-panel" aria-expanded="false">
+    <i class="bi bi-calendar-check"></i>
+  </a>
+</li>
       </div>
     </div>
   </div>
   </nav>
+
+  <!-- Panel "Mis reservas" (vacío por ahora) -->
+<div id="reservas-panel" class="reservas-panel" role="dialog" aria-label="Mis reservas" aria-hidden="true">
+  <div class="reservas-header d-flex align-items-center justify-content-between">
+    <div class="d-flex align-items-center gap-2">
+      <i class="bi bi-calendar-check"></i>
+      <strong class="small mb-0">Mis reservas</strong>
+    </div>
+    <button id="reservas-close" type="button" class="btn btn-sm btn-outline-secondary">Cerrar</button>
+  </div>
+  <div class="p-3 small text-body-secondary">
+    Aún no tienes reservas. Cuando confirmes una, aparecerá aquí.
+  </div>
+</div>
 
 <!-- BANNER DE MARCA -->
 <section id="banner" class="brand-banner text-white">
@@ -119,11 +139,13 @@
 
       <!-- Botón -->
       <div class="col-12 col-md-auto col-lg-auto">
-        <button type="button" class="btn btn-light px-4 mt-2 mt-md-0">
-          Consultar disponibilidad
-        </button>
+        <button id="btn-consultar" type="button" class="btn btn-light px-4 mt-2 mt-md-0">
+  Consultar disponibilidad
+</button>
       </div>
     </form>
+    <!-- Resultado dinámico -->
+    <div id="availability-result" class="mt-4"></div>
   </div>
 </section>
 
@@ -305,10 +327,10 @@ desconéctate de la rutina y conéctate contigo, la naturaleza y los que más qu
   </section>
 
   <!-- FOOTER -->
-  <footer id="contacto" class="site-footer text-white pt-5">
+<footer id="contacto" class="site-footer text-white pt-5">
   <div class="container">
     <div class="row g-4">
-   
+
       <div class="col-12 col-lg-4">
         <a href="#inicio" class="d-inline-flex align-items-center gap-2 text-decoration-none text-white mb-2">
           <img src="imagenes/iconos/logotipo.png" alt="La Casa de las Nubes" class="footer-logo">
@@ -377,6 +399,15 @@ desconéctate de la rutina y conéctate contigo, la naturaleza y los que más qu
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
     crossorigin="anonymous"
   ></script>
+
+  <script src="index.js"></script>
+
+  <!-- Reserva confirmada pop-up -->
+<div id="reserva-confirmada-popup" class="reserva-popup" style="display:none;">
+  <i class="bi bi-check-circle-fill"></i>
+  <span>Tu reserva ha sido confirmada</span>
+</div>
+<!-- ...existing code... -->
 
 </body>
 </html>

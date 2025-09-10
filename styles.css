@@ -114,6 +114,35 @@ h1, h2 {
   box-shadow: 0 0 0 4px rgba(156,192,217,.45);
 }
 
+.reservas-panel{
+  position: fixed;
+  top: 72px;           /* ajusta si tu navbar es más alta/baja */
+  left: 16px;
+  width: 320px;
+  max-width: calc(100vw - 32px);
+  background: rgba(255,255,255,.92);
+  backdrop-filter: saturate(1.1) blur(8px);
+  -webkit-backdrop-filter: saturate(1.1) blur(8px);
+  border: 1px solid rgba(0,0,0,.08);
+  border-radius: 12px;
+  box-shadow: 0 16px 40px rgba(0,0,0,.15);
+  z-index: 1080;
+
+  opacity: 0;
+  transform: translateY(-8px);
+  pointer-events: none;
+  transition: opacity .2s ease, transform .2s ease;
+}
+.reservas-panel.is-open{
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+.reservas-header{
+  padding: .5rem .75rem;
+  border-bottom: 1px solid rgba(0,0,0,.08);
+}
+
 /* Toggler contrast */
 .navbar-dark .navbar-toggler{
   border-color: rgba(255,255,255,.35);
@@ -243,7 +272,7 @@ h1, h2, h3, .navbar-brand { color: var(--green-600); }
   .hero{ min-height: 72vh; }
 }
 
-/* ===== Accesibilidad (focus visible) ===== */
+/* ===== Accesibilidad  ===== */
 :focus-visible{
   outline: 3px solid var(--sky-300);
   outline-offset: 2px;
@@ -348,7 +377,7 @@ h1, h2, h3, .navbar-brand { color: var(--green-600); }
 
 /* Logo en footer */
 .footer-logo{
-  height: 28px;       
+  height: 28px;
   width: auto;
   display: block;
 }
@@ -363,9 +392,8 @@ h1, h2, h3, .navbar-brand { color: var(--green-600); }
   text-decoration: underline;
 }
 
-/* Iconos  */
+/* Iconos */
 .site-footer i.bi{ opacity: .9; }
-
 
 .site-footer .btn-icon{
   background: rgba(255,255,255,.14);
@@ -380,3 +408,132 @@ h1, h2, h3, .navbar-brand { color: var(--green-600); }
 
 .site-footer hr{ opacity: .25; }
 }
+
+/* Logo responsive */
+.footer-logo{
+  height: 28px;
+  width: auto;
+  display: block;
+}
+@media (max-width: 575.98px){
+  .footer-logo{ height: 32px; } /* un toque más grande en móvil */
+}
+
+/* Botón/ícono en fondo oscuro */
+.site-footer .btn-icon{
+  background: rgba(255,255,255,.14);
+  border: 1px solid rgba(255,255,255,.28);
+  color: #fff;
+  padding: .4rem .55rem;
+  border-radius: .75rem;
+}
+.site-footer .btn-icon:hover{ background: rgba(255,255,255,.22); }
+
+/* Links */
+.footer-link{ color:#fff; text-decoration:none; }
+.footer-link:hover{ color: var(--cream); text-decoration: underline; }
+
+
+/* ===== CALENDARIO JS===== */
+.availability-panel {
+  background: #fff;
+  border: 1px solid rgba(0,0,0,.06);
+  border-radius: 1rem;
+  padding: 1rem;
+}
+
+.calendar {
+  --cell-size: 44px;
+}
+@media (min-width: 768px){
+  .calendar { --cell-size: 48px; }
+}
+
+.calendar-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: .5rem;
+}
+
+.calendar-weekdays,
+.calendar-days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: .25rem;
+}
+
+.calendar-weekdays span {
+  font-size: .85rem;
+  color: var(--muted);
+  text-align: center;
+}
+
+.calendar-day {
+  width: 100%;
+  height: var(--cell-size);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: .5rem;
+  background: #f7f7f7;
+  color: var(--text);
+  font-weight: 600;
+}
+
+.calendar-day.is-empty { background: transparent; }
+
+.calendar-day.is-today { 
+  outline: 2px solid var(--sky-300);
+}
+
+.calendar-day.is-selected {
+  background: var(--bs-danger, #dc3545);   
+  color: #fff;
+}
+
+.side-card {
+  background: var(--cream);
+  border: 1px solid rgba(0,0,0,.06);
+  border-radius: 1rem;
+  padding: 1rem;
+}
+
+/* Botón confirmar */
+.btn-confirm {
+  font-weight: 600;
+  border-radius: 999px;
+}
+
+/* Reserva confirmada pop-up */
+.reserva-popup {
+  position: fixed;
+  top: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #fff;
+  color: var(--green-600);
+  border-radius: 1rem;
+  box-shadow: 0 8px 32px rgba(0,0,0,.12);
+  padding: .75rem 1.5rem;
+  z-index: 9999;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  font-size: 1.1rem;
+  border: 1px solid var(--sky-300);
+}
+.reserva-popup i {
+  color: #198754; /* Bootstrap success */
+  font-size: 1.5rem;
+}
+
+.availability-panel { background:#fff; border:1px solid rgba(0,0,0,.06); border-radius:1rem; padding:1rem; }
+.side-card { background: var(--sky-300); border:1px solid rgba(0,0,0,.06); border-radius:1rem; padding:1rem; }
+
+.calendar { --cell-size: 44px; }
+.calendar-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:.5rem; }
+.calendar-weekdays, .calendar-days { display:grid; grid-template-columns:repeat(7,1fr); gap:.25rem; }
+.calendar-weekdays span { font-size:.85rem; color:var(--muted); text-align:center; }
+.calendar-day { height:var(--cell-size); display:flex; align-items:center; justify-content:center; border-radius:.5rem; background:#f7f7f7; font-weight:600; }
+.calendar-day.is-empty { background:transparent; }
+.calendar-day.is-selected { background:#dc3545; color:#fff; } 
