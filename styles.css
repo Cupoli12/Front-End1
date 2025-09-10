@@ -503,6 +503,30 @@ h1, h2, h3, .navbar-brand { color: var(--green-600); }
   border-radius: 999px;
 }
 
+/* Reserva confirmada pop-up */
+.reserva-popup {
+  position: fixed;
+  top: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #fff;
+  color: var(--green-600);
+  border-radius: 1rem;
+  box-shadow: 0 8px 32px rgba(0,0,0,.12);
+  padding: .75rem 1.5rem;
+  z-index: 9999;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  font-size: 1.1rem;
+  border: 1px solid var(--sky-300);
+}
+.reserva-popup i {
+  color: #198754; /* Bootstrap success */
+  font-size: 1.5rem;
+}
+
 .availability-panel { background:#fff; border:1px solid rgba(0,0,0,.06); border-radius:1rem; padding:1rem; }
 .side-card { background: var(--sky-300); border:1px solid rgba(0,0,0,.06); border-radius:1rem; padding:1rem; }
 

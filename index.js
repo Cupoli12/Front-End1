@@ -171,6 +171,14 @@ function renderAvailability() {
     });
     setReservas(reservas);
     renderReservasPanel();
+    // Muestra el pop-up de confirmación
+    const popup = document.getElementById('reserva-confirmada-popup');
+    if (popup) {
+      popup.style.display = 'flex';
+      setTimeout(() => {
+        popup.style.display = 'none';
+      }, 2500); // Oculta después de 2.5 segundos
+    }
     // Cierra el panel de disponibilidad
     out.innerHTML = '';
     out.scrollIntoView({ behavior: 'smooth', block: 'start' });
