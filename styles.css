@@ -243,7 +243,7 @@ h1, h2, h3, .navbar-brand { color: var(--green-600); }
   .hero{ min-height: 72vh; }
 }
 
-/* ===== Accesibilidad (focus visible) ===== */
+/* ===== Accesibilidad  ===== */
 :focus-visible{
   outline: 3px solid var(--sky-300);
   outline-offset: 2px;
