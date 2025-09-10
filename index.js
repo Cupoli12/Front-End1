@@ -1,94 +1,136 @@
-// ---------- Utilidades ----------
-const $ = (s, ctx = document) => ctx.querySelector(s);
+// ...existing code...
 
-function parseISO(v) {
-  const [y, m, d] = (v || '').split('-').map(Number);
-  if (!y || !m || !d) return null;
-  return new Date(y, m - 1, d);
-}
-function daysInMonth(y, m) { return new Date(y, m + 1, 0).getDate(); } // m: 0..11
-function startWeekday(y, m) { return new Date(y, m, 1).getDay(); }     // 0=Dom..6=Sab
-function between(d, a, b) {
-  const t = new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime();
-  const s = new Date(a.getFullYear(), a.getMonth(), a.getDate()).getTime();
-  const e = new Date(b.getFullYear(), b.getMonth(), b.getDate()).getTime();
-  return t >= s && t <= e;
+// ---------- Utilidad para reservas ----------
+// ...existing code...
+
+// Selector utilitario tipo jQuery
+function $(selector, parent = document) {
+  return parent.querySelector(selector);
 }
 
-// ---------- Calendario simple (mes de llegada) ----------
-function buildCalendar(year, monthIndex, startDate, endDate) {
-  const meses = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
-  const total = daysInMonth(year, monthIndex);
-  const offset = startWeekday(year, monthIndex);
+// ...existing code...
+function getReservas() {
+  try {
+    return JSON.parse(localStorage.getItem('reservas')) || [];
+  } catch {
+    return [];
+  }
+}
+function setReservas(arr) {
+  localStorage.setItem('reservas', JSON.stringify(arr));
+}
+function renderReservasPanel() {
+  const panel = $('#reservas-panel');
+  if (!panel) return;
+  const reservas = getReservas();
+  const body = document.createElement('div');
+  body.className = 'p-3 small text-body-secondary';
 
-  const wrap = document.createElement('div');
-  wrap.className = 'calendar';
+  if (reservas.length === 0) {
+    body.innerHTML = 'Aún no tienes reservas. Cuando confirmes una, aparecerá aquí.';
+  } else {
+    body.innerHTML = reservas.map((r, idx) => `
+      <div class="d-flex align-items-center justify-content-between mb-2 border rounded px-2 py-1 bg-white text-dark">
+        <span>
+          <strong>${r.llegada}</strong> — <strong>${r.salida}</strong>
+        </span>
+        <button type="button" class="btn btn-sm btn-outline-danger ms-2 btn-eliminar-reserva" data-idx="${idx}" title="Eliminar reserva">
+          <i class="bi bi-x-lg"></i>
+        </button>
+      </div>
+    `).join('');
+  }
+  // Reemplaza el contenido del panel (excepto el header)
+  const header = panel.querySelector('.reservas-header');
+  panel.innerHTML = '';
+  panel.appendChild(header);
+  panel.appendChild(body);
 
-  const header = document.createElement('div');
-  header.className = 'calendar-header';
-  header.innerHTML = `<strong>${meses[monthIndex]} ${year}</strong>`;
-  wrap.appendChild(header);
-
-  const weekdays = document.createElement('div');
-  weekdays.className = 'calendar-weekdays';
-  ['D','L','M','M','J','V','S'].forEach(l => {
-    const s = document.createElement('span'); s.textContent = l; weekdays.appendChild(s);
+  // Eliminar reserva
+  body.querySelectorAll('.btn-eliminar-reserva').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const idx = Number(btn.dataset.idx);
+      const arr = getReservas();
+      arr.splice(idx, 1);
+      setReservas(arr);
+      renderReservasPanel();
+    });
   });
-  wrap.appendChild(weekdays);
-
-  const grid = document.createElement('div');
-  grid.className = 'calendar-days';
-
-  // vacíos
-  for (let i = 0; i < offset; i++) {
-    const e = document.createElement('div');
-    e.className = 'calendar-day is-empty';
-    grid.appendChild(e);
-  }
-
-  // días
-  for (let d = 1; d <= total; d++) {
-    const cell = document.createElement('div');
-    cell.className = 'calendar-day';
-    cell.textContent = d;
-
-    const cur = new Date(year, monthIndex, d);
-    if (between(cur, startDate, endDate)) cell.classList.add('is-selected'); // rojo
-
-    grid.appendChild(cell);
-  }
-
-  wrap.appendChild(grid);
-  return wrap;
 }
 
 // ---------- Render principal ----------
-function renderAvailability() {
-  const out = $('#availability-result');
-  if (!out) return;
+// ...existing code...
+// ...existing code...
 
-  // Limpia (destruir lo anterior)
-  out.innerHTML = '';
+function buildCalendar(year, month, start, end) {
+  // Crea el contenedor principal
+  const cal = document.createElement('div');
+  cal.className = 'calendar';
 
-  const llegadaStr = $('#pr-llegada')?.value;
-  const salidaStr  = $('#pr-salida')?.value;
+  // Encabezado con mes y año
+  const header = document.createElement('div');
+  header.className = 'calendar-header mb-2';
+  header.innerHTML = `
+    <span class="fw-semibold">${start.toLocaleString('es-CO', { month: 'long', year: 'numeric' })}</span>
+  `;
+  cal.appendChild(header);
 
-  if (!llegadaStr || !salidaStr) {
-    out.innerHTML = `
-      <div class="alert alert-warning" role="alert">
-        Por favor selecciona la fecha de <strong>llegada</strong> y <strong>salida</strong>.
-      </div>
-    `;
-    out.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    return;
+  // Días de la semana
+  const weekdays = ['L', 'M', 'M', 'J', 'V', 'S', 'D'];
+  const weekRow = document.createElement('div');
+  weekRow.className = 'calendar-weekdays mb-1';
+  weekRow.innerHTML = weekdays.map(d => `<span>${d}</span>`).join('');
+  cal.appendChild(weekRow);
+
+  // Días del mes
+  const daysGrid = document.createElement('div');
+  daysGrid.className = 'calendar-days';
+
+  // Primer día del mes
+  const firstDay = new Date(year, month, 1);
+  const lastDay = new Date(year, month + 1, 0);
+  const startDay = firstDay.getDay() === 0 ? 6 : firstDay.getDay() - 1; // Lunes = 0
+
+  // Celdas vacías antes del primer día
+  for (let i = 0; i < startDay; i++) {
+    const emptyCell = document.createElement('div');
+    emptyCell.className = 'calendar-day is-empty';
+    daysGrid.appendChild(emptyCell);
   }
 
-  let start = parseISO(llegadaStr);
-  let end   = parseISO(salidaStr);
-  if (!start || !end) return;
+  // Días del mes
+  for (let d = 1; d <= lastDay.getDate(); d++) {
+    const date = new Date(year, month, d);
+    const cell = document.createElement('div');
+    cell.className = 'calendar-day';
 
-  // Corrige si vienen al revés
-  if (start > end) [start, end] = [end, start];
+    // Día actual
+    if (
+      date.toDateString() === new Date().toDateString()
+    ) {
+      cell.classList.add('is-today');
+    }
+
+    // Día seleccionado (rango)
+    if (
+      start && end &&
+      date >= start && date < end
+    ) {
+      cell.classList.add('is-selected');
+    }
+
+    cell.textContent = d;
+    daysGrid.appendChild(cell);
+  }
+
+  cal.appendChild(daysGrid);
+  return cal;
+}
+
+// ...existing code...
+
+function renderAvailability() {
+  // ...existing code...
 
   // Panel con calendario + lateral
   const panel = document.createElement('div');
@@ -119,6 +161,21 @@ function renderAvailability() {
   const cal = buildCalendar(start.getFullYear(), start.getMonth(), start, end);
   calMount.appendChild(cal);
 
+  // Confirmar reserva
+  $('.btn-confirm', panel).addEventListener('click', () => {
+    // Guarda la reserva en localStorage
+    const reservas = getReservas();
+    reservas.push({
+      llegada: start.toLocaleDateString(),
+      salida: end.toLocaleDateString()
+    });
+    setReservas(reservas);
+    renderReservasPanel();
+    // Cierra el panel de disponibilidad
+    out.innerHTML = '';
+    out.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+
   // Cerrar (eliminar DOM creado)
   $('#btn-cerrar', panel).addEventListener('click', () => {
     out.innerHTML = '';
@@ -128,15 +185,41 @@ function renderAvailability() {
   out.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
+// ...existing code...
+
+// ...existing code...
+
+// Evento para el botón "Consultar disponibilidad"
+document.addEventListener('DOMContentLoaded', () => {
+  const btnConsultar = document.getElementById('btn-consultar');
+  const resultDiv = document.getElementById('availability-result');
+  btnConsultar.addEventListener('click', () => {
+    const llegada = document.getElementById('pr-llegada').value;
+    const salida = document.getElementById('pr-salida').value;
+    if (!llegada || !salida) {
+      resultDiv.innerHTML = '<div class="alert alert-warning">Por favor selecciona las fechas de llegada y salida.</div>';
+      return;
+    }
+    const start = new Date(llegada);
+    const end = new Date(salida);
+    if (isNaN(start) || isNaN(end) || start >= end) {
+      resultDiv.innerHTML = '<div class="alert alert-warning">La fecha de salida debe ser posterior a la de llegada.</div>';
+      return;
+    }
+    // Renderiza el calendario y panel de disponibilidad
+    resultDiv.innerHTML = '';
+    // Variables globales para renderAvailability
+    window.start = start;
+    window.end = end;
+    window.out = resultDiv;
+    renderAvailability();
+  });
+});
+
+// ...existing code...
 
 window.addEventListener('DOMContentLoaded', () => {
-  //  Consultar disponibilidad (calendario)
-  const btnConsultar = $('#btn-consultar');
-  if (btnConsultar) {
-    btnConsultar.addEventListener('click', renderAvailability);
-  } else {
-    console.warn('No se encontró #btn-consultar');
-  }
+  // ...existing code...
 
   // Mis reservas: abrir/cerrar panel
   const btnReservas       = $('#btn-reservas');
@@ -150,6 +233,7 @@ window.addEventListener('DOMContentLoaded', () => {
       const abierto = reservasPanel.classList.contains('is-open');
       btnReservas.setAttribute('aria-expanded', String(abierto));
       reservasPanel.setAttribute('aria-hidden', String(!abierto));
+      if (abierto) renderReservasPanel();
     });
   } else {
     console.warn('No se encontró #btn-reservas o #reservas-panel');
@@ -162,4 +246,11 @@ window.addEventListener('DOMContentLoaded', () => {
       reservasPanel.setAttribute('aria-hidden', 'true');
     });
   }
+
+  // Renderiza reservas al cargar (si el panel está abierto)
+  if (reservasPanel.classList.contains('is-open')) {
+    renderReservasPanel();
+  }
 });
+
+// ...existing code...
