@@ -113,10 +113,10 @@ function buildCalendar(year, month, start, end) {
 
     // Día seleccionado (rango)
     if (
-      start && end &&
-      date >= start && date < end
+  start && end &&
+  date >= start && date <= end
     ) {
-      cell.classList.add('is-selected');
+  cell.classList.add('is-selected');
     }
 
     cell.textContent = d;
@@ -146,7 +146,7 @@ function renderAvailability() {
           <h3 class="h6 fw-semibold mb-2">Estado de reserva</h3>
           <p class="mb-2"><span class="badge text-bg-success">Glamping disponible</span></p>
           <p class="small text-body-secondary mb-2">Fechas:</p>
-          <p><strong>${start.toLocaleDateString()} — ${end.toLocaleDateString()}</strong></p>
+          <p><strong>${start.toISOString().split("T")[0]} — ${end.toISOString().split("T")[0]}</strong></p>
           <button type="button" class="btn btn-primary w-100 btn-confirm mb-2">Confirmar reserva</button>
           <button type="button" class="btn btn-outline-secondary w-100" id="btn-cerrar">Cambiar fechas</button>
         </div>
@@ -243,8 +243,6 @@ window.addEventListener('DOMContentLoaded', () => {
       reservasPanel.setAttribute('aria-hidden', String(!abierto));
       if (abierto) renderReservasPanel();
     });
-  } else {
-    console.warn('No se encontró #btn-reservas o #reservas-panel');
   }
 
   if (btnCerrarReservas && reservasPanel && btnReservas) {
