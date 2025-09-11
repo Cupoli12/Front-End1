@@ -1,14 +1,19 @@
-// ...existing code...
-
 // ---------- Utilidad para reservas ----------
-// ...existing code...
 
 // Selector utilitario tipo jQuery
 function $(selector, parent = document) {
   return parent.querySelector(selector);
 }
 
-// ...existing code...
+// Parsear YYYY-MM-DD como fecha LOCAL (evita el shift por UTC)
+function parseInputDateAsLocal(value) {
+  if (!value) return null;
+  const parts = value.split('-').map(Number);
+  if (parts.length !== 3) return new Date(value); // fallback
+  const [y, m, d] = parts;
+  return new Date(y, m - 1, d); // monthIndex = m - 1
+}
+
 function getReservas() {
   try {
     return JSON.parse(localStorage.getItem('reservas')) || [];
@@ -48,7 +53,7 @@ function renderReservasPanel() {
 
   // Eliminar reserva
   body.querySelectorAll('.btn-eliminar-reserva').forEach(btn => {
-    btn.addEventListener('click', (e) => {
+    btn.addEventListener('click', () => {
       const idx = Number(btn.dataset.idx);
       const arr = getReservas();
       arr.splice(idx, 1);
@@ -59,15 +64,11 @@ function renderReservasPanel() {
 }
 
 // ---------- Render principal ----------
-// ...existing code...
-// ...existing code...
 
 function buildCalendar(year, month, start, end) {
-  // Crea el contenedor principal
   const cal = document.createElement('div');
   cal.className = 'calendar';
 
-  // Encabezado con mes y año
   const header = document.createElement('div');
   header.className = 'calendar-header mb-2';
   header.innerHTML = `
@@ -75,48 +76,45 @@ function buildCalendar(year, month, start, end) {
   `;
   cal.appendChild(header);
 
-  // Días de la semana
   const weekdays = ['L', 'M', 'M', 'J', 'V', 'S', 'D'];
   const weekRow = document.createElement('div');
   weekRow.className = 'calendar-weekdays mb-1';
   weekRow.innerHTML = weekdays.map(d => `<span>${d}</span>`).join('');
   cal.appendChild(weekRow);
 
-  // Días del mes
   const daysGrid = document.createElement('div');
   daysGrid.className = 'calendar-days';
 
-  // Primer día del mes
   const firstDay = new Date(year, month, 1);
   const lastDay = new Date(year, month + 1, 0);
-  const startDay = firstDay.getDay() === 0 ? 6 : firstDay.getDay() - 1; // Lunes = 0
+  const startDay = firstDay.getDay() === 0 ? 6 : firstDay.getDay() - 1;
 
-  // Celdas vacías antes del primer día
   for (let i = 0; i < startDay; i++) {
     const emptyCell = document.createElement('div');
     emptyCell.className = 'calendar-day is-empty';
     daysGrid.appendChild(emptyCell);
   }
 
-  // Días del mes
   for (let d = 1; d <= lastDay.getDate(); d++) {
     const date = new Date(year, month, d);
     const cell = document.createElement('div');
     cell.className = 'calendar-day';
 
-    // Día actual
-    if (
-      date.toDateString() === new Date().toDateString()
-    ) {
+    if (date.toDateString() === new Date().toDateString()) {
       cell.classList.add('is-today');
     }
 
-    // Día seleccionado (rango)
-    if (
-  start && end &&
-  date >= start && date <= end
-    ) {
-  cell.classList.add('is-selected');
+    // Selección incluyendo salida y resaltando inicio/fin
+    if (start && end) {
+      if (date >= start && date <= end) {
+        cell.classList.add('is-selected');
+      }
+      if (date.getTime() === start.getTime()) {
+        cell.classList.add('is-start');
+      }
+      if (date.getTime() === end.getTime()) {
+        cell.classList.add('is-end');
+      }
     }
 
     cell.textContent = d;
@@ -127,12 +125,7 @@ function buildCalendar(year, month, start, end) {
   return cal;
 }
 
-// ...existing code...
-
 function renderAvailability() {
-  // ...existing code...
-
-  // Panel con calendario + lateral
   const panel = document.createElement('div');
   panel.className = 'availability-panel';
   panel.innerHTML = `
@@ -146,7 +139,7 @@ function renderAvailability() {
           <h3 class="h6 fw-semibold mb-2">Estado de reserva</h3>
           <p class="mb-2"><span class="badge text-bg-success">Glamping disponible</span></p>
           <p class="small text-body-secondary mb-2">Fechas:</p>
-          <p><strong>${start.toISOString().split("T")[0]} — ${end.toISOString().split("T")[0]}</strong></p>
+          <p><strong>${start.toLocaleDateString()} — ${end.toLocaleDateString()}</strong></p>
           <button type="button" class="btn btn-primary w-100 btn-confirm mb-2">Confirmar reserva</button>
           <button type="button" class="btn btn-outline-secondary w-100" id="btn-cerrar">Cambiar fechas</button>
         </div>
@@ -156,80 +149,197 @@ function renderAvailability() {
 
   out.appendChild(panel);
 
-  // Monta calendario del mes de llegada
   const calMount = $('#calendar-hook', panel);
   const cal = buildCalendar(start.getFullYear(), start.getMonth(), start, end);
   calMount.appendChild(cal);
 
   // Confirmar reserva
   $('.btn-confirm', panel).addEventListener('click', () => {
-    // Guarda la reserva en localStorage
     const reservas = getReservas();
-    reservas.push({
-      llegada: start.toLocaleDateString(),
-      salida: end.toLocaleDateString()
-    });
+
+    if (window.modificarUltima) {
+      // Reemplazar última reserva
+      reservas[reservas.length - 1] = {
+        llegada: start.toLocaleDateString(),
+        salida: end.toLocaleDateString()
+      };
+      window.modificarUltima = false;
+    } else {
+      reservas.push({
+        llegada: start.toLocaleDateString(),
+        salida: end.toLocaleDateString()
+      });
+    }
+
     setReservas(reservas);
     renderReservasPanel();
-    // Muestra el pop-up de confirmación
+
     const popup = document.getElementById('reserva-confirmada-popup');
     if (popup) {
       popup.style.display = 'flex';
       setTimeout(() => {
         popup.style.display = 'none';
-      }, 2500); // Oculta después de 2.5 segundos
+      }, 2500);
     }
-    // Cierra el panel de disponibilidad
+
     out.innerHTML = '';
-    out.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+    // --- CAMBIAR SECCIÓN RESERVA RÁPIDA ---
+    const reservaRapida = document.getElementById('pre-reserva');
+    if (reservaRapida) {
+      reservaRapida.innerHTML = `
+        <div class="container text-center">
+          <div class="row justify-content-center">
+            <div class="col-12 col-lg-10">
+              <h2 class="h3 fw-semibold mb-2 text-white">¡Te esperamos!</h2>
+              <p class="mb-3 opacity-75">Tu reserva se ha realizado con éxito, ¿quieres hacer algo más?</p>
+              <button id="btn-nueva-reserva" class="btn btn-light px-4 rounded-pill me-2">Agregar nueva reserva</button>
+              <button id="btn-modificar-reserva" class="btn btn-light px-4 rounded-pill">Modificar última reserva</button>
+              <p id="countdown" class="mt-3 fw-semibold text-white"></p>
+            </div>
+          </div>
+        </div>
+      `;
+
+      // === Contador real hasta la fecha de llegada ===
+      const countdown = document.getElementById('countdown');
+      function updateCountdown() {
+        const now = new Date();
+        const diff = start - now;
+
+        if (diff <= 0) {
+          countdown.textContent = "¡Hoy es el gran día de tu reserva! 🎉";
+          clearInterval(interval);
+          return;
+        }
+
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        const minutes = Math.floor((diff / (1000 * 60)) % 60);
+
+        countdown.textContent = `Faltan ${days} días, ${hours} horas y ${minutes} minutos para tu estadía.`;
+      }
+      updateCountdown();
+      const interval = setInterval(updateCountdown, 60000);
+
+      // === Botón "Agregar nueva reserva" ===
+      document.getElementById('btn-nueva-reserva').addEventListener('click', () => {
+        clearInterval(interval);
+        reservaRapida.innerHTML = window.reservaRapidaOriginal;
+
+        const form = reservaRapida.querySelector('form');
+        if (form) form.reset();
+
+        const btnConsultar = document.getElementById('btn-consultar');
+        if (btnConsultar) {
+          btnConsultar.addEventListener('click', () => {
+            const llegada = document.getElementById('pr-llegada').value;
+            const salida = document.getElementById('pr-salida').value;
+            if (!llegada || !salida) {
+              document.getElementById('availability-result').innerHTML = '<div class="alert alert-warning">Por favor selecciona las fechas de llegada y salida.</div>';
+              return;
+            }
+            const start = parseInputDateAsLocal(llegada);
+            const end = parseInputDateAsLocal(salida);
+            if (isNaN(start) || isNaN(end) || start >= end) {
+              document.getElementById('availability-result').innerHTML = '<div class="alert alert-warning">La fecha de salida debe ser posterior a la de llegada.</div>';
+              return;
+            }
+            document.getElementById('availability-result').innerHTML = '';
+            window.start = start;
+            window.end = end;
+            window.out = document.getElementById('availability-result');
+            renderAvailability();
+          });
+        }
+      });
+
+      // === Botón "Modificar última reserva" ===
+      document.getElementById('btn-modificar-reserva').addEventListener('click', () => {
+        clearInterval(interval);
+        reservaRapida.innerHTML = window.reservaRapidaOriginal;
+
+        const form = reservaRapida.querySelector('form');
+        if (form) {
+          form.reset();
+          const reservas = getReservas();
+          if (reservas.length > 0) {
+            const ultima = reservas[reservas.length - 1];
+            // Convertir dd/mm/yyyy -> yyyy-mm-dd
+            const [dia1, mes1, año1] = ultima.llegada.split('/');
+            const [dia2, mes2, año2] = ultima.salida.split('/');
+            document.getElementById('pr-llegada').value = `${año1}-${mes1.padStart(2,'0')}-${dia1.padStart(2,'0')}`;
+            document.getElementById('pr-salida').value = `${año2}-${mes2.padStart(2,'0')}-${dia2.padStart(2,'0')}`;
+          }
+        }
+
+        // Activar modo modificar
+        window.modificarUltima = true;
+
+        const btnConsultar = document.getElementById('btn-consultar');
+        if (btnConsultar) {
+          btnConsultar.addEventListener('click', () => {
+            const llegada = document.getElementById('pr-llegada').value;
+            const salida = document.getElementById('pr-salida').value;
+            if (!llegada || !salida) {
+              document.getElementById('availability-result').innerHTML = '<div class="alert alert-warning">Por favor selecciona las fechas de llegada y salida.</div>';
+              return;
+            }
+            const start = parseInputDateAsLocal(llegada);
+            const end = parseInputDateAsLocal(salida);
+            if (isNaN(start) || isNaN(end) || start >= end) {
+              document.getElementById('availability-result').innerHTML = '<div class="alert alert-warning">La fecha de salida debe ser posterior a la de llegada.</div>';
+              return;
+            }
+            document.getElementById('availability-result').innerHTML = '';
+            window.start = start;
+            window.end = end;
+            window.out = document.getElementById('availability-result');
+            renderAvailability();
+          });
+        }
+      });
+    }
   });
 
-  // Cerrar (eliminar DOM creado)
   $('#btn-cerrar', panel).addEventListener('click', () => {
     out.innerHTML = '';
-    out.scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
-
-  out.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
-
-// ...existing code...
-
-// ...existing code...
 
 // Evento para el botón "Consultar disponibilidad"
 document.addEventListener('DOMContentLoaded', () => {
+  const reservaRapida = document.getElementById('pre-reserva');
+  if (reservaRapida) {
+    window.reservaRapidaOriginal = reservaRapida.innerHTML;
+  }
+
   const btnConsultar = document.getElementById('btn-consultar');
   const resultDiv = document.getElementById('availability-result');
-  btnConsultar.addEventListener('click', () => {
-    const llegada = document.getElementById('pr-llegada').value;
-    const salida = document.getElementById('pr-salida').value;
-    if (!llegada || !salida) {
-      resultDiv.innerHTML = '<div class="alert alert-warning">Por favor selecciona las fechas de llegada y salida.</div>';
-      return;
-    }
-    const start = new Date(llegada);
-    const end = new Date(salida);
-    if (isNaN(start) || isNaN(end) || start >= end) {
-      resultDiv.innerHTML = '<div class="alert alert-warning">La fecha de salida debe ser posterior a la de llegada.</div>';
-      return;
-    }
-    // Renderiza el calendario y panel de disponibilidad
-    resultDiv.innerHTML = '';
-    // Variables globales para renderAvailability
-    window.start = start;
-    window.end = end;
-    window.out = resultDiv;
-    renderAvailability();
-  });
+  if (btnConsultar) {
+    btnConsultar.addEventListener('click', () => {
+      const llegada = document.getElementById('pr-llegada').value;
+      const salida = document.getElementById('pr-salida').value;
+      if (!llegada || !salida) {
+        resultDiv.innerHTML = '<div class="alert alert-warning">Por favor selecciona las fechas de llegada y salida.</div>';
+        return;
+      }
+      const start = parseInputDateAsLocal(llegada);
+      const end = parseInputDateAsLocal(salida);
+      if (isNaN(start) || isNaN(end) || start >= end) {
+        resultDiv.innerHTML = '<div class="alert alert-warning">La fecha de salida debe ser posterior a la de llegada.</div>';
+        return;
+      }
+      resultDiv.innerHTML = '';
+      window.start = start;
+      window.end = end;
+      window.out = resultDiv;
+      renderAvailability();
+    });
+  }
 });
 
-// ...existing code...
-
 window.addEventListener('DOMContentLoaded', () => {
-  // ...existing code...
-
-  // Mis reservas: abrir/cerrar panel
   const btnReservas       = $('#btn-reservas');
   const reservasPanel     = $('#reservas-panel');
   const btnCerrarReservas = $('#reservas-close');
@@ -253,10 +363,10 @@ window.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Renderiza reservas al cargar (si el panel está abierto)
-  if (reservasPanel.classList.contains('is-open')) {
+  if (reservasPanel && reservasPanel.classList.contains('is-open')) {
     renderReservasPanel();
   }
 });
 
-// ...existing code...
+
+
